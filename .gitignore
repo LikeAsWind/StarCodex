@@ -28,3 +28,11 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+### AI agents / Constella ###
+.agents/
+.claude/
+.codex/
+.constella/
+AGENTS.md
+CLAUDE.md
