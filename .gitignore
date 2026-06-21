@@ -31,6 +31,7 @@ bin/
 
 ### AI agents / Constella ###
 .agents/
+.claude/
 .codex/
 .constella/
 AGENTS.md
@@ -38,9 +39,3 @@ CLAUDE.md
 
 # beautiful-codebase dogfood workspace (Phase H run; not deliverable)
 /StarCodex-analysis/
-
-# Ignore .claude/ contents by default, but ship the beautiful-codebase skill.
-.claude/*
-!.claude/skills/
-.claude/skills/*
-!.claude/skills/beautiful-codebase/
