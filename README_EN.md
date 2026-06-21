@@ -48,9 +48,8 @@ Key features:
 - **Three hard checkpoints**: Plan / First Spread / Final. Each must stop and ask the user — the agent is not allowed to silently pick on your behalf.
 - **Optional PDF export**: headless-browser print, zero npm dependencies.
 
-→ Full usage walk-through: [docs/usage-guide.md](./docs/usage-guide.md) (Chinese)
-→ Skill source: [skills/beautiful-codebase/](./skills/beautiful-codebase/)
-→ Skill entry: [skills/beautiful-codebase/SKILL.md](./skills/beautiful-codebase/SKILL.md)
+→ Full usage walk-through: [docs/usage-guide.md](docs/usage-guide.md) (Chinese)
+→ Skill entry and source: [skills/beautiful-codebase/SKILL.md](skills/beautiful-codebase/SKILL.md)
 
 ## Quick start
 
@@ -78,7 +77,7 @@ Key features:
 
 4. The assistant then walks Phase 0 → 6. **Three hard checkpoints** stop and require your independent confirmation (reader profile / theme / layout width / asset mode / cover / first-spread acceptance / build mode / delivery decision). The agent will not silently pick for you.
 
-→ Full usage manual: [docs/usage-guide.md](./docs/usage-guide.md) (Chinese)
+→ Full usage manual: [docs/usage-guide.md](docs/usage-guide.md) (Chinese)
 
 ## Repo layout
 
@@ -113,7 +112,7 @@ Conventions for adding a new skill:
 - A skill must be self-contained at runtime — no skill depends on another skill's runtime, though a skill may cite another's reference docs for cross-comparison.
 - Use `skills/beautiful-codebase/` as the skeleton reference.
 
-The `v0.1.0 → v0.2` follow-up list (16 findings from the dogfood: reacticle API drift, audit-script regex defects, Windows PDF path handling, terminal-theme block, etc.) lives in [v0.2-followups.md](./v0.2-followups.md).
+The `v0.1.0 → v0.2` follow-up list (16 findings from the dogfood: reacticle API drift, audit-script regex defects, Windows PDF path handling, terminal-theme block, etc.) lives in [v0.2-followups.md](v0.2-followups.md).
 
 ## Compatible clients
 
@@ -123,4 +122,4 @@ Only Claude Code has been driven end-to-end so far (StarCodex's own v0.1.0 dogfo
 
 ## License
 
-[MIT](./LICENSE)
+[MIT](LICENSE)

@@ -48,9 +48,8 @@ v0.1.0 仓库内现有 1 个 skill；后续版本会陆续加新 skill。
 - **三 Checkpoint 硬节点**：Plan / First Spread / Final 三处必须停下问用户，不允许 Agent 替你静默选择。
 - **可选 PDF 导出**：headless 浏览器打印，零 npm 依赖。
 
-→ 详细使用流程见 [docs/usage-guide.md](./docs/usage-guide.md)
-→ Skill 源码：[skills/beautiful-codebase/](./skills/beautiful-codebase/)
-→ Skill 入口：[skills/beautiful-codebase/SKILL.md](./skills/beautiful-codebase/SKILL.md)
+→ 详细使用流程见 [docs/usage-guide.md](docs/usage-guide.md)
+→ Skill 入口与源码：[skills/beautiful-codebase/SKILL.md](skills/beautiful-codebase/SKILL.md)
 
 ## 快速开始
 
@@ -78,7 +77,7 @@ v0.1.0 仓库内现有 1 个 skill；后续版本会陆续加新 skill。
 
 4. AI 会按 Phase 0 → 6 走一遍流程；其中 **3 个硬 Checkpoint** 必须停下来让你独立确认 (读者画像 / 主题 / 版式宽度 / 配图模式 / 封面 / 首屏验收 / 开发模式 / 交付决策)，**Agent 不会替你静默选择**。
 
-→ 完整流程手册：[docs/usage-guide.md](./docs/usage-guide.md)
+→ 完整流程手册：[docs/usage-guide.md](docs/usage-guide.md)
 
 ## 仓库结构
 
@@ -113,7 +112,7 @@ StarCodex/
 - skill 可独立工作，不依赖其它 skill 的运行时（可以 cite 其它 skill 的 reference 文档作为对照）。
 - 详见 `skills/beautiful-codebase/` 作为骨架范本。
 
-`v0.1.0 → v0.2 待办`（含 16 条 dogfood findings：reacticle API drift / 脚本 regex 缺陷 / Windows PDF path / 主题阻塞等）见 [v0.2-followups.md](./v0.2-followups.md)。
+`v0.1.0 → v0.2 待办`（含 16 条 dogfood findings：reacticle API drift / 脚本 regex 缺陷 / Windows PDF path / 主题阻塞等）见 [v0.2-followups.md](v0.2-followups.md)。
 
 ## 兼容客户端
 
@@ -123,4 +122,4 @@ StarCodex/
 
 ## 许可
 
-[MIT](./LICENSE)
+[MIT](LICENSE)
