@@ -4,10 +4,10 @@ inputs:
   - <project>-analysis/article/sections/<NN>-evidence.md
   - <project>-analysis/article/sections/<NN>-business.md
   - <project>-analysis/plan/plan.md (Outline row + Brief 中"信息保留比例 / 目标语言 / 主题"几行)
-  - .claude/skills/beautiful-codebase/theme-profiles/<theme>.md
-  - .claude/skills/beautiful-codebase/references/component-policy.md
-  - .claude/skills/beautiful-codebase/references/raw-policy.md
-  - .claude/skills/beautiful-codebase/references/source-pointers.md
+  - skills/beautiful-codebase/theme-profiles/<theme>.md
+  - skills/beautiful-codebase/references/component-policy.md
+  - skills/beautiful-codebase/references/raw-policy.md
+  - skills/beautiful-codebase/references/source-pointers.md
 permissions:
   - 仅允许 Read 上述输入文件；**禁止透传** Glob / Grep / Read 源码权限
 outputs:
@@ -27,12 +27,12 @@ Section 组件 `sections/<NN>-<slug>.tsx`。
   显式未知段
 - `<project>-analysis/plan/plan.md` 中本节那一行 Outline + Brief 中"信息保留比例 /
   目标语言 / 主题"几行
-- 选定主题文件：`.claude/skills/beautiful-codebase/theme-profiles/<theme>.md`（terminal /
+- 选定主题文件：`skills/beautiful-codebase/theme-profiles/<theme>.md`（terminal /
   tufte / press），尤其是 §组件级写作指南
-- `.claude/skills/beautiful-codebase/references/component-policy.md` — Reacticle 组件
+- `skills/beautiful-codebase/references/component-policy.md` — Reacticle 组件
   协议 + Q9b 替换优先级
-- `.claude/skills/beautiful-codebase/references/raw-policy.md` — Raw 自由层规则
-- `.claude/skills/beautiful-codebase/references/source-pointers.md` — 节脚 file:line
+- `skills/beautiful-codebase/references/raw-policy.md` — Raw 自由层规则
+- `skills/beautiful-codebase/references/source-pointers.md` — 节脚 file:line
   折叠面板渲染合约
 
 ## 你不能做的（违反任何一条 = section 整份重写）

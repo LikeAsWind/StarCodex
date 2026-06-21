@@ -5,7 +5,7 @@ inputs:
   - <project>-analysis/article/sections/<NN>-evidence.md
   - <project>-analysis/article/sections/<NN>-business.md
   - <project>-analysis/plan/plan.md (本节 Outline 行)
-  - .claude/skills/beautiful-codebase/references/review-checklist.md §3
+  - skills/beautiful-codebase/references/review-checklist.md §3
 outputs:
   - **消息返回 pass/fail + 修复点**（不写文件）
 model-hint: sonnet-class
@@ -22,7 +22,7 @@ model-hint: sonnet-class
 - `<project>-analysis/article/sections/<NN>-evidence.md`（Step A 证据）
 - `<project>-analysis/article/sections/<NN>-business.md`（Step A.5 业务）
 - `<project>-analysis/plan/plan.md` 中本节那行 Outline
-- `.claude/skills/beautiful-codebase/references/review-checklist.md` §3 完整清单
+- `skills/beautiful-codebase/references/review-checklist.md` §3 完整清单
 
 ## 审计项（按顺序跑）
 
