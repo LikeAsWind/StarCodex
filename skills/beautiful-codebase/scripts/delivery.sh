@@ -260,6 +260,33 @@ if [[ "$TIER_LABEL" == "codegraph-indexed" && -n "$TARGET_PATH" && -d "$TARGET_P
   fi
 fi
 
+# ── Git remote probe (analyzed project) ────────────────────
+# Source Pointers per references/source-pointers.md §5 needs:
+#   { provider, baseUrl, branch }  — read from analysis-snapshot.json.remote.
+# Probe the **analyzed project** (TARGET_PATH from tier.json), not workspace
+# or skill. Gracefully fall back to null when no remote / no git.
+REMOTE_JSON="null"
+if [[ -n "$TARGET_PATH" && -d "$TARGET_PATH" ]] && command -v git >/dev/null 2>&1; then
+  REMOTE_RAW="$(git -C "$TARGET_PATH" remote get-url origin 2>/dev/null || true)"
+  if [[ -n "$REMOTE_RAW" ]]; then
+    # Normalize: strip trailing .git; convert SSH (git@host:owner/repo) → https.
+    REMOTE_URL="${REMOTE_RAW%.git}"
+    if [[ "$REMOTE_URL" =~ ^git@([^:]+):(.+)$ ]]; then
+      REMOTE_URL="https://${BASH_REMATCH[1]}/${BASH_REMATCH[2]}"
+    fi
+    # Provider from host.
+    REMOTE_PROVIDER="unknown"
+    case "$REMOTE_URL" in
+      *github.com*)    REMOTE_PROVIDER="github" ;;
+      *gitlab.com*|*gitlab.*)    REMOTE_PROVIDER="gitlab" ;;
+      *bitbucket.org*|*bitbucket.*) REMOTE_PROVIDER="bitbucket" ;;
+    esac
+    REMOTE_BRANCH="$(git -C "$TARGET_PATH" rev-parse --abbrev-ref HEAD 2>/dev/null || echo "")"
+    [[ -z "$REMOTE_BRANCH" || "$REMOTE_BRANCH" == "HEAD" ]] && REMOTE_BRANCH="main"
+    REMOTE_JSON="{\"provider\":\"$(js_escape "$REMOTE_PROVIDER")\",\"baseUrl\":\"$(js_escape "$REMOTE_URL")\",\"branch\":\"$(js_escape "$REMOTE_BRANCH")\"}"
+  fi
+fi
+
 # Snapshot timestamps
 DISCOVER_SNAPSHOT="$(json_get_string "$INVENTORY" snapshot)"
 [[ -z "$DISCOVER_SNAPSHOT" ]] && DISCOVER_SNAPSHOT="$(json_get_string "$INVENTORY" generatedAt)"
@@ -363,6 +390,7 @@ cat > "$SNAPSHOT_OUT" <<EOF
     "summaryFile":   "$(js_escape "$FRESHNESS_SUMMARY_PATH")"
   },
   "audits": "$(js_escape "$AUDIT_NOTE")",
+  "remote": $REMOTE_JSON,
   "html": {
     "path": "article/article.html",
     "sizeBytes": $HTML_SIZE_BYTES,
