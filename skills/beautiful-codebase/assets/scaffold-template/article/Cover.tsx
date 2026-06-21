@@ -7,6 +7,7 @@
 // 硬约束（详见 references/cover.md）：
 //   1. **3:4 比例固定（屏幕 + PDF）**：不要改 aspectRatio；打印时 .ra-cover 会自动
 //      独占首页。让内部元素用百分比 / aspect-ratio / inset 自适应，不要写绝对 px 高度。
+//      允许在 3:4 外面再套一层全视口 frame（.ra-cover-frame），让屏幕视图里封面独占首屏。
 //   2. **图文并茂**：必须有视觉元素 + 简短文字（标题 + 可选副题 / 小标签）。
 //      **禁止纯文字封面**。
 //   3. **主题忠实**：颜色 / 字号 / 字重 / 边框只能用 `--ra-*` token。terminal 主题下
@@ -22,35 +23,54 @@
 
 export function Cover() {
   return (
-    <section
-      className="ra-cover"
-      aria-label="代码分析报告封面"
-      data-ra-cover=""
+    // ── 外层 frame ──
+    // 屏幕：min-height: 100vh + flex 居中 → 3:4 封面独占首屏，
+    //       Hero / Lead / Section 全部从第二屏开始。
+    // 打印：page-break-after / break-after 让 PDF 第二页起承接 TOC + 正文。
+    //       PDF 端 .ra-cover { break-after: page } 由 pdf-print-overrides.css C 段
+    //       负责（两套机制，互不干扰）。
+    <div
+      className="ra-cover-frame"
+      data-ra-cover-frame=""
       style={{
-        // ── 外壳（请不要动） ──
-        position: "relative",
-        width: "100%",
-        // 屏幕上像"一本立着的书"：限宽 48rem (768px)；同时**从视口高度反推宽度**
-        // (100vh - 8rem) * 3/4，确保 3:4 封面**一屏看全、不用下拉**。
-        maxWidth: "min(100%, 48rem, calc((100vh - 8rem) * 3 / 4))",
-        margin: "0 auto var(--ra-space-7, 3rem) auto",
-        aspectRatio: "3 / 4",
-        overflow: "hidden",
-        background: "transparent",
-        color: "var(--ra-color-fg, inherit)",
-        borderRadius: "var(--ra-radius-md, 0)",
-        border: "1px solid var(--ra-color-border, currentColor)",
-        isolation: "isolate",
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        pageBreakAfter: "always",
+        breakAfter: "page",
       }}
     >
-      {/*
-        ─── 封面内容区 · 在这里写 ───
-        默认占位：terminal 主题起手——模块拓扑骨架 SVG + 项目名 + 副题。
-        构建时**替换为按报告 + 主题定制的封面**。占位是"即使忘了替换也不会渲染出
-        一团乱"，但**不能交付出去**。
-      */}
-      <CoverPlaceholder />
-    </section>
+      <section
+        className="ra-cover"
+        aria-label="代码分析报告封面"
+        data-ra-cover=""
+        style={{
+          // ── 3:4 内壳（请不要动） ──
+          position: "relative",
+          width: "100%",
+          // 屏幕上像"一本立着的书"：限宽 48rem (768px)；同时**从视口高度反推宽度**
+          // (100vh - 8rem) * 3/4，确保 3:4 封面**一屏看全、不用下拉**。
+          maxWidth: "min(100%, 48rem, calc((100vh - 8rem) * 3 / 4))",
+          margin: "0 auto",
+          aspectRatio: "3 / 4",
+          overflow: "hidden",
+          background: "transparent",
+          color: "var(--ra-color-fg, inherit)",
+          borderRadius: "var(--ra-radius-md, 0)",
+          border: "1px solid var(--ra-color-border, currentColor)",
+          isolation: "isolate",
+        }}
+      >
+        {/*
+          ─── 封面内容区 · 在这里写 ───
+          默认占位：terminal 主题起手——模块拓扑骨架 SVG + 项目名 + 副题。
+          构建时**替换为按报告 + 主题定制的封面**。占位是"即使忘了替换也不会渲染出
+          一团乱"，但**不能交付出去**。
+        */}
+        <CoverPlaceholder />
+      </section>
+    </div>
   );
 }
 

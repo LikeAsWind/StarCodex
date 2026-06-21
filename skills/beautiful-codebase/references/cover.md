@@ -29,8 +29,12 @@
 ## 2 · 硬约束(5 条 · 不可妥协)
 
 1. **3:4 屏幕 + PDF 独占首页(外壳不要动)**:`Cover.tsx` 的 `aspectRatio: "3 / 4"` 和
-   max-width / margin / border 不要改 —— `pdf-print-overrides.css` C 段只负责让封面
-   之后分页。**内部元素一律用百分比 / 相对单位**,不要写绝对 px 高度。
+   max-width / margin / border 不要改。**外壳 3:4 不动;但允许在 3:4 外面再套一层全视口
+   frame(`.ra-cover-frame`),让屏幕视图里封面独占首屏**——scaffold 模板已经包好,屏幕端
+   靠 `min-height: 100vh` + flex 居中实现"封面占满首屏",PDF 端靠
+   `pdf-print-overrides.css` C 段的 `.ra-cover { break-after: page }` 实现"封面之后
+   分页"。**两套机制独立,互不干扰**。**内部元素一律用百分比 / 相对单位**,不要写绝对
+   px 高度。
 2. **图文并茂(禁止纯文字封面)**。必须同时具备:
    - **视觉主体**(SVG / CSS 几何 / 复杂 React 组件 / 字体艺术 任选);
    - **文字层**:至少一个标题、副标题 `Codebase Analysis · <profile>`、底部 colophon。
@@ -163,10 +167,19 @@ function CoverPlaceholder() {
 ```
 
 **Phase 3 First Spread 主 Agent 的职责**: 把 `<CoverPlaceholder />` 替换成按 reader
-profile + 主题选定的真实构图;**外壳一行不动**。
+profile + 主题选定的真实构图;**外壳一行不动**(3:4 内壳 + 外层 `.ra-cover-frame`
+全视口 frame 都不要改)。
 
-**PDF 分页**: `scripts/pdf-print-overrides.css` C 段自带 `.ra-cover { break-after:
-always }`,封面之后自动分页;Phase 3 不需要额外处理。
+**屏幕 vs PDF 两套独立分页机制**:
+- **屏幕**: scaffold 模板里 `Cover()` 外层 `<div className="ra-cover-frame">` 自带
+  `min-height: 100vh` + flex 居中,封面在屏幕上占满首屏,Hero / Lead / Section 全部从
+  第二屏开始。
+- **PDF**: `scripts/pdf-print-overrides.css` C 段的 `.ra-cover { break-after: page }`
+  让 PDF 第一页 = 3:4 封面、第二页起 = TOC + 正文。
+
+**两个机制互不重叠**——`.ra-cover-frame` 不在打印时强加 `100vh`(由 PDF override 接管
+封面页面行为);`.ra-cover` 不在屏幕上单独占首屏(由 frame 接管视口高度)。Phase 3
+不需要额外处理两边的分页。
 
 ## 6 · Self-check(5 条 · 写完封面立刻自查)
 
