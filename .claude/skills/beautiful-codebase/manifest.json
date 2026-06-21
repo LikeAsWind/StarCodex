@@ -1,0 +1,15 @@
+{
+  "name": "beautiful-codebase",
+  "version": "0.1.0",
+  "category": "Code · Any project → beautiful analysis report",
+  "description": "Take any code project (language-agnostic: Java / Python / Go / TS / Rust / ...) and turn it into a single-file, offline-openable HTML analysis report. Sister skill to beautiful-article: same reacticle scaffold, theme system, cover, colophon, PDF export. Different pipeline: a Discover stage builds an inventory + business-evidence corpus from the repo (codegraph -> rg -> grep tier fallback), a three-stage write (Evidence -> Business Distillation -> Writing) physically severs hallucination, and mermaid renders architecture / call-chain / business-domain diagrams. Ships three reader profiles (architecture-review / onboarding / archaeology) and a code-native terminal theme.",
+  "homepage": "https://github.com/Yangzhitong/StarCodex/tree/master/.claude/skills/beautiful-codebase",
+  "compat": [
+    "claude-code",
+    "claude-ai",
+    "cursor",
+    "codex-cli",
+    "gemini-cli",
+    "opencode"
+  ]
+}

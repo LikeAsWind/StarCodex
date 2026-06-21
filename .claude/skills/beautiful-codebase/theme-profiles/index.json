@@ -1,0 +1,37 @@
+[
+  {
+    "id": "terminal",
+    "runtimeTheme": "terminal",
+    "label": "Terminal · 代码原生暗色",
+    "mood": "暗底终端、等宽显示、语义色承载代码分析原语；让读者像在看一份被精心排版过的源码审阅",
+    "bestFor": ["architecture-review", "onboarding", "archaeology", "code-analysis", "system-design"],
+    "notFor": ["需打印的正式文档（暗底费墨）", "温暖叙事 / 出版随笔", "演示幻灯片"],
+    "profile": "terminal.md",
+    "default": true,
+    "defaultRecommendation": "code-analysis 内容首选；Section 08 风险徽章 / Section 02b 业务实体配色 / Section 05 流程图节点着色都依赖本主题的语义色 token"
+  },
+  {
+    "id": "tufte",
+    "runtimeTheme": "tufte",
+    "label": "Tufte · Data-Ink",
+    "mood": "证据、数据、克制、低装饰；让读者凑近去读",
+    "bestFor": ["evidence-heavy", "academic", "research-codebase", "longform"],
+    "notFor": ["十米外观看的演示幻灯片", "移动端优先且需要大量边注的场景"],
+    "profile": "tufte.md",
+    "default": false,
+    "defaultRecommendation": "证据密集的学术 / 研究型代码项目（论文配套代码、算法库）首选",
+    "inheritedFrom": "beautiful-article"
+  },
+  {
+    "id": "press",
+    "runtimeTheme": "press",
+    "label": "Press · 书卷 / 编辑",
+    "mood": "出版、叙事、温暖、编辑感；请你从一臂之外读一本书",
+    "bestFor": ["editorial-codebase", "cms", "content-domain", "narrative-walkthrough"],
+    "notFor": ["极度密集、需大量边注的数据型报告（那是 tufte 主场）", "演示幻灯片"],
+    "profile": "press.md",
+    "default": false,
+    "defaultRecommendation": "编辑系统 / CMS / 内容业务型项目首选；想把代码分析报告读得像一本书时也用它",
+    "inheritedFrom": "beautiful-article"
+  }
+]
