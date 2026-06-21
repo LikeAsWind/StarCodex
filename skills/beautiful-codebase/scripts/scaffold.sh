@@ -244,6 +244,16 @@ export RA_THEME="$THEME"
 perl -pi -e 's/__THEME__/$ENV{RA_THEME}/g' "$TARGET/article/main.tsx"
 perl -pi -e 's/__THEME__/$ENV{RA_THEME}/g' "$TARGET/article/Article.tsx"
 
+# ── Inject beautiful-codebase repo URL into Article.tsx colophon ──
+# The colophon credits the **skill itself** (Made with beautiful-codebase ↗),
+# NOT the project being analyzed. So this URL is fixed at scaffold time and
+# always resolves to wherever the skill source lives.
+#
+# When the skill moves to its own repo, update this single constant; the
+# template carries the placeholder __BEAUTIFUL_CODEBASE_REPO__.
+export RA_REPO_URL="https://github.com/LikeAsWind/StarCodex/tree/master/skills/beautiful-codebase"
+perl -pi -e 's{__BEAUTIFUL_CODEBASE_REPO__}{$ENV{RA_REPO_URL}}g' "$TARGET/article/Article.tsx"
+
 # ── Cover toggle (mirror beautiful-article logic) ──
 if [[ "$COVER" == "1" ]]; then
   perl -i -ne 'print unless /__COVER_(IMPORT|RENDER)_(BEGIN|END)__/' "$TARGET/article/main.tsx"

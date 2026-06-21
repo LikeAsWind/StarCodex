@@ -68,7 +68,7 @@ export function ArticleDoc() {
         >
           Made with{" "}
           <a
-            href="https://github.com/ConardLi/garden-skills"
+            href="__BEAUTIFUL_CODEBASE_REPO__"
             target="_blank"
             rel="noopener noreferrer"
             style={{
