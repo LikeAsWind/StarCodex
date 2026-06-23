@@ -14,7 +14,7 @@
 # chromium-browser / brave-browser / microsoft-edge). Auto-detected; macOS app
 # bundles also probed. No npm, no Node, no puppeteer.
 #
-# How it works (see references/pdf-output.md):
+# How it works:
 #   1. reacticle's TOC is a 2-col desktop grid; PDF wants TOC above body.
 #      We inject scripts/pdf-print-overrides.css into <head> so @media print
 #      collapses TOC to one column and breaks the page after it.
@@ -172,7 +172,7 @@ if [[ -f "$OUTPUT" ]]; then
   SIZE="$(du -h "$OUTPUT" 2>/dev/null | cut -f1)"
   echo "✓ PDF 输出：${OUTPUT} (${SIZE:-?})"
   echo
-  echo "  如果 TOC / 分页 / mermaid 不理想，看 references/pdf-output.md 故障排除段。"
+
 else
   echo "✗ 浏览器返回成功但输出文件不存在：$OUTPUT" >&2
   exit 4

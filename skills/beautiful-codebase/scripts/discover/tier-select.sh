@@ -1,11 +1,11 @@
-#!/usr/bin/env bash
-# ─────────────────────────────────────────────────────────────
-# tier-select.sh —— Finalize the tool tier for Phase 1 Discover.
+﻿#!/usr/bin/env bash
+# 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€
+# tier-select.sh 鈥斺€?Finalize the tool tier for Phase 1 Discover.
 #
 # Reads the JSON output of probe-tools.sh (file path or stdin), optionally
 # combines it with the user's Phase 0 choice for the `codegraph-installed`
 # case (init / downgrade / stop), and writes
-# `<workspace>/discovery/tier.json` — the single source of truth that the
+# `<workspace>/discovery/tier.json` 鈥?the single source of truth that the
 # remaining Phase 1 scripts (inventory / buckets / business-evidence /
 # codebase-brief) read.
 #
@@ -40,14 +40,14 @@
 #   0  Tier successfully decided and tier.json written.
 #   2  User chose `stop` (skill should halt cleanly).
 #   1  Other errors (bad args, codegraph init failure, missing inputs).
-# ─────────────────────────────────────────────────────────────
+# 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€
 set -euo pipefail
 
 usage() {
   sed -n '2,38p' "$0"
 }
 
-# ── Args ────────────────────────────────────────────────────
+# 鈹€鈹€ Args 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€
 WORKSPACE=""
 PROBE_JSON=""
 CHOICE=""
@@ -64,39 +64,39 @@ while [[ $# -gt 0 ]]; do
     --choice=*)        CHOICE="${1#--choice=}" ;;
     --target)          shift; TARGET_OVERRIDE="${1:-}" ;;
     --target=*)        TARGET_OVERRIDE="${1#--target=}" ;;
-    *) echo "✗ unknown arg: $1" >&2; usage >&2; exit 1 ;;
+    *) echo "鉁?unknown arg: $1" >&2; usage >&2; exit 1 ;;
   esac
   shift
 done
 
 if [[ -z "$WORKSPACE" ]]; then
-  echo "✗ --workspace <path> is required" >&2
+  echo "鉁?--workspace <path> is required" >&2
   exit 1
 fi
 if [[ -z "$PROBE_JSON" ]]; then
-  echo "✗ --probe-json <path|-> is required" >&2
+  echo "鉁?--probe-json <path|-> is required" >&2
   exit 1
 fi
 
 mkdir -p "$WORKSPACE/discovery"
 
-# ── Slurp probe JSON ────────────────────────────────────────
+# 鈹€鈹€ Slurp probe JSON 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€
 if [[ "$PROBE_JSON" == "-" ]]; then
   PROBE_RAW="$(cat)"
 else
   if [[ ! -f "$PROBE_JSON" ]]; then
-    echo "✗ probe JSON file not found: $PROBE_JSON" >&2
+    echo "鉁?probe JSON file not found: $PROBE_JSON" >&2
     exit 1
   fi
   PROBE_RAW="$(cat "$PROBE_JSON")"
 fi
 
 if [[ -z "$PROBE_RAW" ]]; then
-  echo "✗ probe JSON is empty" >&2
+  echo "鉁?probe JSON is empty" >&2
   exit 1
 fi
 
-# ── Tiny JSON value extractors (no jq dependency) ───────────
+# 鈹€鈹€ Tiny JSON value extractors (no jq dependency) 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€
 # Grab a string value: json_str "tier"
 json_str() {
   local key="$1"
@@ -132,23 +132,23 @@ GREP_AVAILABLE="$(json_bool_nested grep available)"
 GREP_VERSION="$(json_str_nested grep version)"
 
 if [[ -z "$PROBE_TIER" ]]; then
-  echo "✗ probe JSON does not contain a tier field" >&2
+  echo "鉁?probe JSON does not contain a tier field" >&2
   exit 1
 fi
 
 # Allow caller to override the target path (e.g. analyzing a sibling project).
 TARGET="${TARGET_OVERRIDE:-$PROBE_TARGET}"
 if [[ -z "$TARGET" ]]; then
-  echo "✗ no target path: pass --target or include target in probe JSON" >&2
+  echo "鉁?no target path: pass --target or include target in probe JSON" >&2
   exit 1
 fi
 if [[ ! -d "$TARGET" ]]; then
-  echo "✗ target not a directory: $TARGET" >&2
+  echo "鉁?target not a directory: $TARGET" >&2
   exit 1
 fi
 TARGET_ABS="$(cd "$TARGET" && pwd)"
 
-# ── Resolve final tier based on probe tier + user choice ────
+# 鈹€鈹€ Resolve final tier based on probe tier + user choice 鈹€鈹€鈹€鈹€
 FINAL_TIER="$PROBE_TIER"
 DECIDED_BY="auto"
 NOTES=()
@@ -160,8 +160,8 @@ case "$PROBE_TIER" in
   codegraph-installed)
     if [[ -z "$CHOICE" ]]; then
       cat >&2 <<'EOF'
-✗ probe tier is `codegraph-installed` (codegraph CLI present, target NOT indexed).
-  This script needs a user choice — pass one of:
+鉁?probe tier is `codegraph-installed` (codegraph CLI present, target NOT indexed).
+  This script needs a user choice 鈥?pass one of:
     --choice=init        run `codegraph init` now (writes .codegraph/ into target)
     --choice=downgrade   keep target untouched, downgrade to rg/grep
     --choice=stop        halt skill; user will init manually and restart
@@ -171,13 +171,13 @@ EOF
     case "$CHOICE" in
       init)
         if ! command -v codegraph >/dev/null 2>&1; then
-          echo "✗ user chose init but codegraph CLI is not on PATH" >&2
+          echo "鉁?user chose init but codegraph CLI is not on PATH" >&2
           exit 1
         fi
-        echo "▸ Notice: running \`codegraph init $TARGET_ABS\` now (writes .codegraph/ into the target project)." >&2
-        echo "▸ This is the only allowed write into the analyzed project." >&2
+        echo "鈻?Notice: running \`codegraph init $TARGET_ABS\` now (writes .codegraph/ into the target project)." >&2
+        echo "鈻?This is the only allowed write into the analyzed project." >&2
         if ! codegraph init "$TARGET_ABS" >&2; then
-          echo "✗ \`codegraph init\` failed; aborting" >&2
+          echo "鉁?\`codegraph init\` failed; aborting" >&2
           exit 1
         fi
         FINAL_TIER="codegraph-indexed"
@@ -192,18 +192,18 @@ EOF
         elif [[ "$GREP_AVAILABLE" == "true" ]]; then
           FINAL_TIER="grep"
         else
-          echo "✗ user chose downgrade but neither rg nor grep available; cannot proceed" >&2
+          echo "鉁?user chose downgrade but neither rg nor grep available; cannot proceed" >&2
           exit 1
         fi
         DECIDED_BY="user-downgrade"
         NOTES+=("user opted to skip codegraph init; using ${FINAL_TIER}")
         ;;
       stop)
-        echo "▸ User chose stop. Skill should halt cleanly; user will run \`codegraph init\` manually and restart." >&2
+        echo "鈻?User chose stop. Skill should halt cleanly; user will run \`codegraph init\` manually and restart." >&2
         exit 2
         ;;
       *)
-        echo "✗ unknown --choice: $CHOICE (expected init|downgrade|stop)" >&2
+        echo "鉁?unknown --choice: $CHOICE (expected init|downgrade|stop)" >&2
         exit 1
         ;;
     esac
@@ -215,16 +215,16 @@ EOF
     NOTES+=("only system grep available; accuracy reduced; recommend installing ripgrep (rg)")
     ;;
   none)
-    echo "✗ probe tier is \`none\` (no codegraph / rg / grep). Cannot proceed." >&2
+    echo "鉁?probe tier is \`none\` (no codegraph / rg / grep). Cannot proceed." >&2
     exit 1
     ;;
   *)
-    echo "✗ unknown probe tier: $PROBE_TIER" >&2
+    echo "鉁?unknown probe tier: $PROBE_TIER" >&2
     exit 1
     ;;
 esac
 
-# ── JSON escape helper ──────────────────────────────────────
+# 鈹€鈹€ JSON escape helper 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€
 js_escape() {
   local s="$1"
   s="${s//\\/\\\\}"
@@ -275,4 +275,4 @@ cat > "$OUT" <<EOF
 }
 EOF
 
-echo "✓ wrote $OUT (tier=$FINAL_TIER, decided_by=$DECIDED_BY)"
+echo "鉁?wrote $OUT (tier=$FINAL_TIER, decided_by=$DECIDED_BY)"
