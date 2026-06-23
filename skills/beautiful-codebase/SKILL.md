@@ -289,7 +289,7 @@ Step A Evidence SubAgent -> Step A.5 Business Distill -> Step B Writing SubAgent
 - ? 引用注释内容作为证据
 - ? 引用 commit message
 - ? 引用文档/README
-- ? 使用 mermaid DSL（必须是 SVG 图片）
+- 保持流程图节点中文优先（详见 references/component-policy.md）
 - ? 添加非固定结构的任何额外章节
 
 **每个章节都遵循"先写确定性内容（调用图/列表），再写分析"**的顺序。
